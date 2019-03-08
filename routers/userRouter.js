@@ -1,14 +1,18 @@
 const express = require("express");
-const userDB = require("./helpers/userDb");
-const postDB = require("./helpers/postDb");
+const userDB = require("../data/helpers/userDb");
+// const postDB = require("../data/helpers/postDb");
 const router = express.Router();
 const capitalize = require("../middleware/capitalize");
 
 router.use(capitalize);
 
+router.get('/1test', (req, res) =>{
+    res.send('hi there');
+})
+
 router.get("/users", async (req, res) => {
   try {
-    const user = await postDB.get(req.query);
+    const user = await userDB.get(req.query);
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: "Could not retrive post information." });
@@ -17,7 +21,7 @@ router.get("/users", async (req, res) => {
 
 router.get("/users/:id", async (req, res) => {
   try {
-    const user = await postDB.getById(req.params.id);
+    const user = await userDB.getById(req.params.id);
     if (post) {
       res.status(200).json(user);
     } else {
@@ -31,7 +35,7 @@ router.get("/users/:id", async (req, res) => {
 });
 router.post("/users", capitalize, async (req, res) => {
   try {
-    const user = await db.insert(req.body);
+    const user = await userDB.insert(req.body);
     if (post) {
       res.status(201).json(user);
     } else {
@@ -47,7 +51,7 @@ router.post("/users", capitalize, async (req, res) => {
 });
 router.delete("/users/:id", async (req, res) => {
   try {
-    const post = await db.remove(req.params.id);
+    const post = await userDB.remove(req.params.id);
     if (post) {
       res.json(user);
     } else {
@@ -64,7 +68,7 @@ router.put("/users/:id", capitalize, async (req, res) => {
   try {
     const { title, contents } = req.body;
     if (title && contents) {
-      const user = await db.update(req.params.id, req.body);
+      const user = await userDB.update(req.params.id, req.body);
       if (post) {
         res.status(200).json(user);
       } else {

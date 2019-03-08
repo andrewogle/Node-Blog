@@ -1,13 +1,12 @@
 const express = require("express");
-const postRoutes = require("./data/postRouter");
-const userRoutes = require("./data/userRouter");
+const mainRouter = require('./routers/router');
 const server = express();
 
 server.use(express.json());
 
-server.use("/api", postRoutes, userRoutes);
+server.use("/api", mainRouter);
 
-server.get("/", (req, res) => {
+server.get("/", async (req, res) => {
   res.send("Hello");
 });
 
