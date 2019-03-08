@@ -10,9 +10,9 @@ router.get('/1test', (req, res) =>{
     res.send('hi there');
 })
 
-router.get("/users", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const user = await userDB.get(req.query);
+    const user = await userDB.get();
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: "Could not retrive post information." });

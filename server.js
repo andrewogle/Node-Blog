@@ -4,7 +4,7 @@ const server = express();
 
 server.use(express.json());
 
-server.use("/api", mainRouter);
+server.use("/api/", mainRouter);
 
 server.get("/", async (req, res) => {
   res.send("Hello");

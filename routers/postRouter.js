@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get("/posts", async (req, res) => {
   try {
-    const posts = await postDB.get(req.query);
+    const posts = await postDB.get();
     res.status(200).json(posts);
   } catch (error) {
     res.status(500).json({ error: "Could not retrive post information." });
@@ -27,7 +27,7 @@ router.get("/posts/:id", async (req, res) => {
 });
 router.post("/posts", async (req, res) => {
   try {
-    const post = await db.insert(req.body);
+    const post = await postDB.insert(req.body);
     if (post) {
       res.status(201).json(post);
     } else {
@@ -43,7 +43,7 @@ router.post("/posts", async (req, res) => {
 });
 router.delete("/posts/:id", async (req, res) => {
   try {
-    const post = await db.remove(req.params.id);
+    const post = await postDB.remove(req.params.id);
     if (post) {
       res.json(post);
     } else {
@@ -60,7 +60,7 @@ router.put("/posts/:id", async (req, res) => {
   try {
     const { title, contents } = req.body;
     if (title && contents) {
-      const post = await db.update(req.params.id, req.body);
+      const post = await postDB.update(req.params.id, req.body);
       if (post) {
         res.status(200).json(post);
       } else {
