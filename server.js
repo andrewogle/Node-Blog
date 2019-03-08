@@ -5,7 +5,7 @@ const server = express();
 
 server.use(express.json());
 
-server.use("/api", postRoutes);
+server.use("/api", postRoutes, userRoutes);
 
 server.get("/", (req, res) => {
   res.send("Hello");
