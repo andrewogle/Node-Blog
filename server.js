@@ -1,14 +1,14 @@
-const express = require('express');
-const postRoutes = require('./data/postRouter');
-const userRoutes = require('./data/userRouter');
+const express = require("express");
+const postRoutes = require("./data/postRouter");
+const userRoutes = require("./data/userRouter");
 const server = express();
 
 server.use(express.json());
 
-server.use('/api',postRoutes, userRoutes);
+server.use("/api", postRoutes);
 
-server.get('/', (req, res)=>{
-    res.send('Hello')
-})
+server.get("/", (req, res) => {
+  res.send("Hello");
+});
 
 module.exports = server;
