@@ -3,7 +3,7 @@ const postRouter = require('./postRouter');
 const express = require('express');
 const router = express.Router(); 
 
-router.use('/users', userRouter);
-router.use('/posts', postRouter);
+router.use('/', userRouter);
+router.use('/', postRouter);
 
 module.exports = router;

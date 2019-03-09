@@ -1,16 +1,12 @@
 const express = require("express");
 const userDB = require("../data/helpers/userDb");
-// const postDB = require("../data/helpers/postDb");
+const postDB = require("../data/helpers/postDb");
 const router = express.Router();
 const capitalize = require("../middleware/capitalize");
 
 router.use(capitalize);
 
-router.get('/1test', (req, res) =>{
-    res.send('hi there');
-})
-
-router.get("/", async (req, res) => {
+router.get("/users", async (req, res) => {
   try {
     const user = await userDB.get();
     res.status(200).json(user);
@@ -22,7 +18,7 @@ router.get("/", async (req, res) => {
 router.get("/users/:id", async (req, res) => {
   try {
     const user = await userDB.getById(req.params.id);
-    if (post) {
+    if (user) {
       res.status(200).json(user);
     } else {
       res.status(404).json({ message: "The specified post does not exist." });
@@ -30,13 +26,13 @@ router.get("/users/:id", async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "The post information could not be retrieved." });
+      .json({ error: "User information could not be retrieved." });
   }
 });
 router.post("/users", capitalize, async (req, res) => {
   try {
     const user = await userDB.insert(req.body);
-    if (post) {
+    if (user) {
       res.status(201).json(user);
     } else {
       res.status(400).json({
@@ -51,16 +47,16 @@ router.post("/users", capitalize, async (req, res) => {
 });
 router.delete("/users/:id", async (req, res) => {
   try {
-    const post = await userDB.remove(req.params.id);
-    if (post) {
+    const user = await userDB.remove(req.params.id);
+    if (user) {
       res.json(user);
     } else {
       res
         .status(404)
-        .json({ message: "The post with the specified ID does not exist." });
+        .json({ message: "The user with the specified ID does not exist." });
     }
   } catch (error) {
-    res.status(500).json({ error: "The post could not be removed" });
+    res.status(500).json({ error: "The user could not be removed" });
   }
 });
 
@@ -74,17 +70,17 @@ router.put("/users/:id", capitalize, async (req, res) => {
       } else {
         res
           .status(404)
-          .json({ message: "The post with the specified ID does not exist." });
+          .json({ message: "The user with the specified ID does not exist." });
       }
     } else {
       res.status(400).json({
-        errorMessage: "Please provide title and contents for the post."
+        errorMessage: "Please provide user information."
       });
     }
   } catch (error) {
     res
       .status(500)
-      .json({ error: "The post information could not be modified." });
+      .json({ error: "The user information could not be modified." });
   }
 });
 module.exports = router;
