@@ -1,6 +1,8 @@
 // code away!
 const server = require('./server');
-const port = 9090;
+const port = process.env.port || 9090;
+
+
 server.get("/", (req, res)=>{
     res.send('hi');
 })
